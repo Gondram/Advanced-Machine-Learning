@@ -64,3 +64,12 @@ def batch_preprocess_texts(
 
 		processed_texts.append(tokens)
 	return processed_texts
+
+## preprocessing w/ spacy
+def spacy_process(text):
+        """Lemmatize tokens, lower case, remove punctuation, spaces, and stop words"""
+        doc = nlp_model(text)
+        processed_doc = [token.lemma_.lower() for token in doc if not token.is_punct and 
+                         not token.is_space and not token.is_stop and 
+                         not 'http' in token.lemma_.lower() and 'www' not in token.lemma_.lower()]
+        return processed_doc
